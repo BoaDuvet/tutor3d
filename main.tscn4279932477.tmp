@@ -1,10 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://2wap0283yk0r"]
+[gd_scene load_steps=9 format=3 uid="uid://2wap0283yk0r"]
 
 [ext_resource type="Script" uid="uid://cfb7xo35cn5fo" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ceuu150fmggvr" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://defdm2qdva75q" path="res://mob.tscn" id="2_h2yge"]
-[ext_resource type="FontFile" uid="uid://cyxhh7ddkn62q" path="res://fonts/Montserrat-Medium.ttf" id="4_lquwl"]
-[ext_resource type="Script" uid="uid://mtt4mxt1rpqx" path="res://score_label.gd" id="5_7mycd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 size = Vector3(60, 2, 60)
@@ -25,18 +23,12 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="Theme" id="Theme_272bh"]
-default_font = ExtResource("4_lquwl")
-default_font_size = 22
-
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
 mob_scene = ExtResource("2_h2yge")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-collision_layer = 4
-collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_7dm0k")
@@ -85,28 +77,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h2yge")
 curve = SubResource("Curve3D_1bvp3")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
-transform = Transform3D(0.010691157, -0.00027327402, -0.9999411, 0, 0.9999983, -0.00027328965, 0.99994284, 2.9217827e-06, 0.010691138, -12.300382, 1.8754883, -7.785187)
+transform = Transform3D(0.010691157, -0.00027327443, -0.99994254, 0, 0.9999997, -0.00027329006, 0.99994284, 2.9217867e-06, 0.010691153, -12.300382, 1.8754883, -7.785187)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[node name="UserInterface" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ScoreLabel" type="Label" parent="UserInterface"]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 35.0
-offset_right = 109.0
-offset_bottom = 58.0
-theme = SubResource("Theme_272bh")
-theme_override_colors/font_color = Color(1, 0.64705884, 0.23137255, 1)
-text = "Score: 0"
-script = ExtResource("5_7mycd")
-
-[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
